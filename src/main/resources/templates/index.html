@@ -46,7 +46,7 @@
 				find a way to add more images for each item 
 				maybe like a mini carousel w/out auto cycle?
 			-->
-			
+			<div class="col-xs-10 col-xs-offset-1">
 			<div class="item-block col-lg-2 col-md-4 col-xs-6" th:each="item : ${items}">
 			<form method="post">
 				<img class="item-img image-responsive center-block" th:src="${item.imagePaths}"/>
@@ -246,6 +246,7 @@
 					</tr>
 				</table>
 				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
 			</div>
 			
 

@@ -13,7 +13,7 @@
 			<div class="col-xs-5"><h3 class="myPanel-heading">My Items <a href="/addItem"><span class="glyphicon glyphicon-plus"></span></a></h3></div>
 			</div>
 			<div class="panel-body">
-				<div class="item-block" th:each="item : ${items}">
+				<div class="item-block col-xs-3" th:each="item : ${items}">
 					<form method="post" action="/manageItems">
 					
 						<img class="item-img image-responsive" th:src="${item.imagePaths}"/>
