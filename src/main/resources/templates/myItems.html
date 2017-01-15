@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="template :: dochead">
+</head>
+<body>
+
+	<div th:replace="template :: navigation"></div>
+	
+	<!-- Order Managment and Item Managment -->
+	<div class="row">
+		<div class="container-fluid orders-table col-xs-offset-1 col-xs-10 panel panel-default">
+			<div class="row">
+			<div class="col-xs-5"><h3 class="myPanel-heading">My Items <a href="/addItem"><span class="glyphicon glyphicon-plus"></span></a></h3></div>
+			</div>
+			<div class="panel-body">
+				<div class="item-block" th:each="item : ${items}">
+					<form method="post" action="/manageItems">
+					
+						<img class="item-img image-responsive" th:src="${item.imagePaths}"/>
+						
+						<BR/>
+						
+						<table class="item-info-dark">
+						
+							<tr>
+								<td colspan="2"><h3 th:text="${item.name}">Item Name</h3></td>
+							</tr>
+							
+							<tr>
+								<td>
+									<div class="input-group">
+										<span class="input-group-addon" id="price_label">Price:</span>
+										<input type="text" class="form-control" name="price" th:value="${item.price}" aria-describedby="Item Price" />
+									</div>
+								</td>
+								
+								<td>
+									<div class="input-group">
+										<span class="input-group-addon" id="stock_label">In Stock:</span>
+										<input type="text" class="form-control" name="inStock" th:value="${item.inStock}" aria-describedby="Item stock" />
+									</div>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="2"> 
+									<div class="btn-group" style="width:100%;" >
+										<button class="btn btn-primary" name="update" style="width:50%;">Update</button>
+										<button class="btn btn-danger" name="delete" style="width:50%;">Delete</button>
+									</div>
+								</td>
+							</tr>
+							
+							<!-- is this block used? -->
+							<tr>
+								<td><input type="text" th:value="${item.uid}" name="item_ID" hidden="true" /></td>
+								<td><input type="checkbox" name="item_delete" hidden="true" /></td>
+							</tr>
+							
+						</table>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+
+</body>
+</html>

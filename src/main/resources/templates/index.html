@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="template :: dochead">
+</head>
+<body>
+
+	<nav th:replace="template :: navigation"></nav>
+	
+	<!-- top of page carousel, featured items, artists and more -->
+	<div class="fluid-container" style="overflow: hidden;">
+		<div id="myCarousel" class="carousel slide fluid-container" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+			  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			  <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+			</ol>
+			
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+			  <div class="item active">
+			    <img th:src="@{images/BDBG_Wall.png}" alt="BDBG Wall"/>
+			  </div>
+			  <div class="item">
+			    <img th:src="@{images/DD.png}" alt="Designed Different"/>
+			  </div>
+			</div>
+			
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+			  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			  <span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+			  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			  <span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+	
+	<article class="fluid-container main-content">
+	
+		<div class="row">
+			
+			<!--
+				this works as intended for 1 image, 
+				find a way to add more images for each item 
+				maybe like a mini carousel w/out auto cycle?
+			-->
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6" th:each="item : ${items}">
+			<form method="post">
+				<img class="item-img image-responsive center-block" th:src="${item.imagePaths}"/>
+				
+				<table class="item-info">
+				
+					<tr>
+						<td th:text="${item.name}">Item Name</td>
+						<td style="align: left;"><a th:href="@{'/profile/'} + ${item.designer.username}" th:text="${item.designer.username}">designer name</a></td>
+					</tr>
+					
+					<tr>
+						<td>Price: <span th:text="${item.price}"></span></td>
+						<td>In Stock: <span th:text="${item.inStock}"></span></td>
+					</tr>
+					
+					<tr>
+						<td><input type="text" th:value="${item.uid}" name="item_ID" hidden="true" /></td>
+					</tr>
+					
+				</table>
+				
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</form>
+			</div>
+			
+			<!-- ################################################ -->
+			<!-- ################################################ -->
+			<!-- ################################################ -->
+			<!-- ##                                            ## -->
+			<!-- ##      Everything from here is filler        ## -->
+			<!-- ##                                            ## -->
+			<!-- ################################################ -->
+			<!-- ################################################ -->
+			<!-- ################################################ -->
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+			<div class="item-block col-lg-2 col-md-4 col-xs-6">
+				<img class="item-img image-responsive" th:src="@{images/ImageHolder.jpg}"/><BR/>
+				<table class="item-info">
+					<tr>
+						<td>Item Name</td>
+						<td style="align: left;"><a href="/designer_name">designer name</a></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>In Stock:</td>
+					</tr>
+				</table>
+				<button class="btn btn-block btn-primary">Add to <span class="glyphicon glyphicon-shopping-cart"></span></button>
+			</div>
+			
+
+		</div>
+	</article>
+	
+	
+
+</body>
+</html>

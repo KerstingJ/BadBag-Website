@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="dochead">
+	<link th:href="@{/css/normalize.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script th:src="@{/js/main.js}"> </script>
+	<style>
+		body { padding-top: 50px; }
+	</style>
+	<title>BBD</title>
+</head>
+
+<header>
+<nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="navigation">
+	<div class="container-fluid">
+	<!-- this needs to fixed so it doesn't vomit on small screens -->
+		<ul class="nav navbar-nav">
+			<li><a href="/">home</a></li>
+		</ul>
+		
+		<ul class="nav navbar-nav navbar-right">
+			<!-- this should be responsive if someone is logged in to show profile setting/actions -->
+			<li class="dropdown">
+				<a href="#" class="dropfown-toggle" data-toggle="dropdown" role="button" 
+				aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><span class="badge" th:text="${cartSize}"></span></a>
+			    <ul class="dropdown-menu">
+			    	<li><a href="/viewCart">View Cart</a></li>
+				    <li><a href="/checkOut">Check Out</a></li>
+			    </ul>
+			</li>
+			
+			<li class="dropdown">
+			<a href="#" class="dropfown-toggle" data-toggle="dropdown" role="button" 
+			aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+			    <ul class="dropdown-menu">
+				    <li th:if="${!isLoggedIn}"><a href="/login">login</a></li>
+				    <li th:if="${isLoggedIn}"><a href="/profile">Profile</a></li>
+				    <li th:if="${isLoggedIn}" role="separator" class="divider"></li>
+				    <li th:if="${isLoggedIn}"><a href="/manageItems">Manage Items</a></li>
+				    <li th:if="${isLoggedIn}"><a href="/manageOrders">Manage Orders</a></li>
+				    <li th:if="${isLoggedIn}" role="separator" class="divider"></li>
+				    <li th:if="${isLoggedIn}"><a href="/logout">logout</a></li>
+			    </ul>
+			</li>
+	    </ul>
+    </div>
+</nav>
+
+
+
+</header>
+</html>

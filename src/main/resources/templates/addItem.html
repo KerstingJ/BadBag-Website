@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="template :: dochead">
+</head>
+<body>
+
+	<div th:replace="template :: navigation"></div>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 login">
+				<div class="panel-heading">
+					<h1>Add Item</h1>
+				</div>
+			    <p class="error" th:text="${error}"></p>
+			    <form method="post" enctype="multipart/form-data">
+				    <div class="form-group">
+					    <input type="text" class="form-control" id="itemName" name="itemName" placeholder="Item Name" />
+					    <textarea class="form-control" rows="3" placeholder="Description"></textarea>
+				    </div>
+				    
+				    <div class="form-group">
+					    <div class="input-group">
+							<span class="input-group-addon">Price $</span>
+							<input type="number" class="form-control" id="itemDollars" name="itemDollars"
+								value="0" aria-label="Amount Dollars" />
+							<span class="input-group-addon">.</span>
+							<input type="number" class="form-control" id="itemCents" name="itemCents"
+								value="00" aria-label="Amount Cents" />
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon">Amount In Stock</span>
+						    <input type="number" class="form-control" id="itemStock" name="itemStock" min="0" />
+					    </div>
+				    </div>
+				    
+					<div class="form-group">
+						<img class="center-block" id="imagePreview" alt="Image Preview" width="100" height="100"/><br/>
+						<label for="itemImage">Image Upload</label>
+						
+						<input type="file" id="itemImage" name="itemImage" multiple="true"
+							onchange="document.getElementById('imagePreview').src = window.URL.createObjectURL(this.files[0])"/>
+					</div>
+					
+					
+			        <div class="form-group">
+			        <button class="btn btn-primary" type="submit">Submit</button>
+			        </div>
+			        
+			        <img th:src="@{newImage}" />
+			    </form>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
