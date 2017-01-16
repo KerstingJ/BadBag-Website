@@ -19,6 +19,8 @@ public class SiteUser extends AbstractEntity {
 
 	private String username, email;
 	private String pwHash;
+	private String profilePath;
+	private String bio;
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	private List<Post> posts;
@@ -103,6 +105,24 @@ public class SiteUser extends AbstractEntity {
 		this.posts = posts;
 	}
 	
+	@Column(name = "profile_path")
+	public String getProfilePath() {
+		return profilePath;
+	}
+
+	public void setProfilePath(String profilePath) {
+		this.profilePath = profilePath;
+	}
+	
+	@Column(name = "bio")
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}

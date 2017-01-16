@@ -23,61 +23,84 @@ import design.badbag.models.SiteUser;
 
 @Controller
 public class ProfileController extends AbstractController {
-	
+
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profileView(HttpServletRequest request, Model model) {
 		SiteUser siteUser = getUserFromSession(request.getSession());
-		
+
 		if (siteUser == null) {
 			return "redirect:/login";
 		}
-		
+
 		return "redirect:profile/" + siteUser.getUsername();
 	}
-	
-	
+
 	@RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
 	public String userPosts(@PathVariable String username, HttpServletRequest request, Model model) {
+		SiteUser activeUser = getUserFromSession(request.getSession());
+		
+		if (activeUser != null) {
+			if (activeUser.getUsername().equals(username)) {
+				System.out.println("this page is editable");
+				model.addAttribute("editable", true);
+			}
+		}
+
 		SiteUser author = siteUserDao.findByUsername(username);
-		
+
 		List<Post> posts = postDao.findAllByAuthorOrderByCreatedDesc(author);
-		
+
+		model.addAttribute("user", author);
 		model.addAttribute("posts", posts);
 		return "profile";
 	}
-	
+
 	@RequestMapping(value = "/profile/{username}", method = RequestMethod.POST)
 	public String userNewPosts(@PathVariable String username, HttpServletRequest request, Model model) {
-		
+
 		String postBody = request.getParameter("postBody");
-		
+
+		/*
+		 * author on get request handler for this uri gets user object info from different source
+		 * this might cause confusion in the future although seems accurate under the assumptions that: 
+		 * 		++this will only be called when making edits to page or making a new post 
+		 * 		++only the author of the blog can make edits or make new posts
+		 * 		++the author will be the activeUser
+		 */
 		SiteUser author = getUserFromSession(request.getSession());
-		
-		//check that user is who they are suppose to be to make a post on this page
-		//add a redirect later
-		if (author == null) {
-			System.out.println("You need to be logged in to make a post");
-			return "redirect:/login";
-		} else if (!author.equals(siteUserDao.findByUsername(username))) {
-			System.out.println("Woah, what are you trying to do here? this isn't yours");
-			return "redirect:/profile";
+
+		if (request.getParameter("updateBio") != null) {
+			author.setBio(request.getParameter("updatedBio"));
+			siteUserDao.save(author);
 		}
-		
-		//if everything checks out lets save this sucka
-		if (exists(postBody) && author != null) {
-			
-			Post post = new Post(postBody, author);
-			postDao.save(post);
-			System.out.println("Saved Post: " + postBody);
-			
+
+		if (request.getParameter("updateSocial") != null) {
+			// this needs to be something for social links
+			author.setBio(request.getParameter("updatedSocial"));
+			siteUserDao.save(author);
 		}
+
 		
-		List<Post> posts = postDao.findAllByAuthorOrderByCreatedDesc(author);
-		
-		model.addAttribute("posts", posts);
-		return "profile";
+		if (request.getParameter("newPost") != null) {
+			if (author == null) {
+				System.out.println("You need to be logged in to make a post");
+				return "redirect:/login";
+			} else if (!author.equals(siteUserDao.findByUsername(username))) {
+				System.out.println("Woah, what are you trying to do here? this isn't yours");
+				return "redirect:/profile";
+			}
+
+			// if everything checks out lets save this sucka
+			if (exists(postBody) && author != null) {
+
+				Post post = new Post(postBody, author);
+				postDao.save(post);
+				System.out.println("Saved Post: " + postBody);
+
+			}
+		}
+
+		return "redirect:/profile";
 	}
-	
-	
-	
+
 }

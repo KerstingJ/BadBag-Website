@@ -5,63 +5,166 @@
 <body>
 
 	<div th:replace="template :: navigation"></div>
-	
+
 	<div class="container-fluid">
-		
+
 		<div class="row">
 			<!-- this section should be designers information, profile pic, bio, about section -->
-			
+
 			<!-- col-md-offset-1  -->
 			<div class="col-xs-12 col-sm-3">
 				<div class="panel-body">
 					<div class="row">
-						<img th:src="@{/images/ImageHolder.jpg}" style="width:100%;"/>
+						<img th:src="@{/images/ImageHolder.jpg}" style="width: 100%;" />
 					</div>
-					
-					<hr/>
-					
+
+					<hr />
+
 					<div style="padding: 6px;">
 						<div class="row">
-							<div><strong>Bio</strong></div>
+							<div>
+								<strong>Bio</strong>
+							</div>
+							<span th:text="${user.bio}"></span> 
+							<div th:if="${editable}">
+								<br />
+								<button class="btn" data-toggle="modal" data-target="#bioModal">Edit</button>
+	
+								<!-- begin modal -->
+								<div class="modal fade" id="bioModal" tabindex="-1" role="dialog"
+									aria-labelledby="bioModal" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+	
+											<form class="form-horizontal" role="form" method="post">
+	
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">
+														<span aria-hidden="true">&times;</span> <span
+															class="sr-only">Close</span>
+													</button>
+													<h4 class="modal-title">Update Bio</h4>
+												</div>
+	
+												<div class="modal-body">
+	
+	
+	
+													<div class="form-group">
+														<div class="col-sm-10">
+															<textarea class="form-control" rows="3" name="updatedBio"
+																th:text="${user.bio}"></textarea>
+														</div>
+													</div>
+	
+	
+	
+												</div>
+	
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+	
+													<button type="submit" class="btn btn-primary"
+														name="updateBio">Save changes</button>
+												</div>
+											</form>
+	
+	
+										</div>
+									</div>
+								</div>
+							<!-- end modal -->
+							</div>
 						</div>
-						
-						<hr/>
-						
+
+						<hr />
+
 						<div class="row">
-							<div><strong>Follow Me</strong></div>
+							<div>
+								<strong>Follow Me</strong>
+							</div>
+							
+							<div th:if="${editable}">
+								<br />
+								<button class="btn" data-toggle="modal" data-target="#bioSocial">Edit</button>
+	
+								<!-- begin modal -->
+								
+								<div class="modal fade" id="bioSocial" tabindex="-1"
+									role="dialog" aria-labelledby="bioSocial" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+	
+											<form class="form-horizontal" role="form" method="post">
+	
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">
+														<span aria-hidden="true">&times;</span> <span
+															class="sr-only">Close</span>
+													</button>
+													<h4 class="modal-title">Update Social Links</h4>
+												</div>
+	
+												<div class="modal-body">
+													<div class="form-group">
+														<div class="col-sm-10">
+															<textarea class="form-control" rows="3"
+																name="updatedSocial"
+																placeholder="This will currently only change your bio"></textarea>
+														</div>
+													</div>
+												</div>
+	
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+	
+													<button type="submit" class="btn btn-primary"
+														name="updateSocial">Save changes</button>
+												</div>
+	
+											</form>
+	
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col-xs-12 col-sm-7">
-						<!-- section that holds interface to create a post, should be hidden if not a active users profile -->
+				<!-- section that holds interface to create a post, should be hidden if not a active users profile -->
 				<div class="row">
 					<!-- a simple form for users to add new blog posts to their profile -->
 					<div class="login">
 						<form name="addPost" method="POST">
-						
-							<textarea class="form-control" rows="3" name="postBody" placeholder="Whats the word"></textarea>
-							<button class="btn btn-primary"> post </button>
-						
+
+							<textarea class="form-control" rows="3" name="postBody"
+								placeholder="Whats the word"></textarea>
+							<button class="btn btn-primary" name="newPost">post</button>
+
 						</form>
 					</div>
 				</div>
-				
-				<br/>
-						<!-- this where the profile shows posts, most recent on top -->
+
+				<br />
+				<!-- this where the profile shows posts, most recent on top -->
 				<div class="row">
-					 <div class="profilePost" th:each="post: ${posts}">
-					 	
-					 	<div class="well">
-					 	
-					 		<span th:text="${post.body}"></span>
-					 	
-					 	</div>
-					 	
-					 	<br/>
-					 	
-					 </div>
+					<div class="profilePost" th:each="post: ${posts}">
+
+						<div class="well">
+
+							<span th:text="${post.body}"></span>
+
+						</div>
+
+						<br />
+
+					</div>
 				</div>
 			</div>
 		</div>

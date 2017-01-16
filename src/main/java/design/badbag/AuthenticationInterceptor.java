@@ -39,10 +39,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         			cartSize = siteUser.getCart().size();
         			
         		}
-        		
-        		if (request.getRequestURI().contains(siteUser.getUsername())) {
-        			editable = true;
-        		}
         	}
         }
 	    
@@ -50,7 +46,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 	    	//without if statement these cause errors on /addItem page... Waddup wit that?
 			modelAndView.getModelMap().addAttribute("cartSize", cartSize);
 		    modelAndView.getModelMap().addAttribute("isLoggedIn", isLoggedIn);
-		    modelAndView.getModelMap().addAttribute("editable", editable);
 		}
 	    
     }
