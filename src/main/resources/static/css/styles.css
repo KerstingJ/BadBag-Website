@@ -86,6 +86,10 @@
 	padding: 0px;
 }
 
+.profilePost {
+	white-space: pre-wrap;
+}
+
 body {
 	background-color: #444444;
 }

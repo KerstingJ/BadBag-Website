@@ -24,7 +24,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     		Object handler, ModelAndView modelAndView) throws Exception {
 	    
     	boolean isLoggedIn = false;
-    	boolean editable = false;
 		SiteUser siteUser;
 	    Integer userId = (Integer) request.getSession().getAttribute(AbstractController.userSessionKey);
 	    Integer cartSize = 0;

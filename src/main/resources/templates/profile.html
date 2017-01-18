@@ -31,6 +31,7 @@
 								<button class="btn" data-toggle="modal" data-target="#bioModal">Edit</button>
 	
 								<!-- begin modal -->
+								<!-- how can i make this so im only using code for one dynamic modal call? -->
 								<div class="modal fade" id="bioModal" tabindex="-1" role="dialog"
 									aria-labelledby="bioModal" aria-hidden="true">
 									<div class="modal-dialog">
@@ -140,7 +141,7 @@
 				<!-- section that holds interface to create a post, should be hidden if not a active users profile -->
 				<div class="row">
 					<!-- a simple form for users to add new blog posts to their profile -->
-					<div class="login">
+					<div th:if="${editable}" class="login">
 						<form name="addPost" method="POST">
 
 							<textarea class="form-control" rows="3" name="postBody"
@@ -154,16 +155,68 @@
 				<br />
 				<!-- this where the profile shows posts, most recent on top -->
 				<div class="row">
-					<div class="profilePost" th:each="post: ${posts}">
+					<div class="panel panel-default" th:each="post: ${posts}">
+						<div class="panel-heading">
 
-						<div class="well">
+							<span class="panel-title" th:text="${post.created}"></span>
+							
+						</div>
+						
+						<div class="panel-body">
 
-							<span th:text="${post.body}"></span>
+							<span class="profilePost" th:text="${post.body}"></span>
 
+						</div>
+						
+						<div th:if="${editable}" class="panel-footer">
+							<button class="btn" data-toggle="modal" data-target="#editPost">
+								<span class="glyphicon glyphicon-pencil" aria-label="edit"></span>
+							</button>
+
+							<!-- begin modal -->
+							
+							<div class="modal fade" id="editPost" tabindex="-1"
+								role="dialog" aria-labelledby="edit-post" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+
+										<form class="form-horizontal" role="form" method="post">
+
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">
+													<span aria-hidden="true">&times;</span> <span
+														class="sr-only">Close</span>
+												</button>
+												<h4 class="modal-title">Update Post</h4>
+											</div>
+
+											<div class="modal-body">
+												<div class="form-group">
+													<div class="col-sm-10">
+														<textarea class="form-control" rows="3"
+															th:name="@{'updatedPost:'} + ${post.uid}"></textarea>
+													</div>
+												</div>
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Close</button>
+
+												<button type="submit" class="btn btn-primary"
+													name="updateSocial">Save changes</button>
+											</div>
+
+										</form>
+
+									</div>
+								</div>
+							</div>
+						
 						</div>
 
 						<br />
-
+	
 					</div>
 				</div>
 			</div>

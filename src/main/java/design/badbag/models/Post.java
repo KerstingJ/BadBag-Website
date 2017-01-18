@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -42,7 +43,7 @@ public class Post extends AbstractEntity {
 
 
 	@NotNull
-    @Column(name = "body")
+    @Column(name = "body", length = 10485760)
 	public String getBody() {
 		return body;
 	}

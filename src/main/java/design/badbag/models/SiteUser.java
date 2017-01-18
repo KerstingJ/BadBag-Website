@@ -114,7 +114,7 @@ public class SiteUser extends AbstractEntity {
 		this.profilePath = profilePath;
 	}
 	
-	@Column(name = "bio")
+	@Column(name = "bio", length = 10485760)
 	public String getBio() {
 		return bio;
 	}
