@@ -16,6 +16,60 @@
 				<div class="panel-body">
 					<div class="row">
 						<img th:src="@{/images/ImageHolder.jpg}" style="width: 100%;" />
+						<div th:if="${editable}">
+								<br />
+								<button class="btn" data-toggle="modal" data-target="#imageModal">Edit</button>
+	
+								<!-- begin modal -->
+								<!-- how can i make this so im only using code for one dynamic modal call? -->
+								<div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
+									aria-labelledby="imageModal" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+	
+											<form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+	
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">
+														<span aria-hidden="true">&times;</span> <span
+															class="sr-only">Close</span>
+													</button>
+													<h4 class="modal-title">Update Profile Pic</h4>
+												</div>
+	
+												<div class="modal-body">
+	
+	
+	
+													<div class="form-group">
+														<div class="col-sm-10">
+															<img class="center-block" id="imagePreview" alt="Image Preview" width="100" height="100"/><br/>
+															
+															<input type="file" id="itemImage" name="profilePic"
+																onchange="document.getElementById('imagePreview').src = window.URL.createObjectURL(this.files[0])"/>
+														
+														</div>
+													</div>
+	
+	
+	
+												</div>
+	
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default"
+														data-dismiss="modal">Close</button>
+	
+													<button type="submit" class="btn btn-primary"
+														name="updatePic">Save changes</button>
+												</div>
+											</form>
+	
+	
+										</div>
+									</div>
+								</div>
+							<!-- end modal -->
+							</div>
 					</div>
 
 					<hr />
@@ -169,13 +223,20 @@
 						</div>
 						
 						<div th:if="${editable}" class="panel-footer">
-							<button class="btn" data-toggle="modal" data-target="#editPost">
+							<button class="btn" data-toggle="modal" data-target="#editPost"
+								th:onclick="@{document.getElementById('post_ID').value = '} + ${post.uid} + @{'}">
 								<span class="glyphicon glyphicon-pencil" aria-label="edit"></span>
 							</button>
 
 							<!-- begin modal -->
-							
-							<div class="modal fade" id="editPost" tabindex="-1"
+						
+						</div>
+
+						<br />
+	
+					</div>
+					
+					<div th:if="${editable}" class="modal fade" id="editPost" tabindex="-1"
 								role="dialog" aria-labelledby="edit-post" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -194,8 +255,10 @@
 												<div class="form-group">
 													<div class="col-sm-10">
 														<textarea class="form-control" rows="3"
-															th:name="@{'updatedPost:'} + ${post.uid}"></textarea>
+															name="updatedPost"></textarea>
 													</div>
+													
+													<input type="text" value="none" id="post_ID" name="post_ID" hidden="true" />
 												</div>
 											</div>
 
@@ -204,7 +267,7 @@
 													data-dismiss="modal">Close</button>
 
 												<button type="submit" class="btn btn-primary"
-													name="updateSocial">Save changes</button>
+													name="updatePost">Save changes</button>
 											</div>
 
 										</form>
@@ -212,12 +275,6 @@
 									</div>
 								</div>
 							</div>
-						
-						</div>
-
-						<br />
-	
-					</div>
 				</div>
 			</div>
 		</div>
