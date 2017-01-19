@@ -1,1 +1,1 @@
-web: java -jar --port $PORT target/BadBag-website-0.0.1-SNAPSHOT.jar
+web: java -jar target/BadBag-website-0.0.1-SNAPSHOT.jar
