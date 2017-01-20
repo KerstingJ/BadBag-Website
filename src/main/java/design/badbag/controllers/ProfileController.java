@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import design.badbag.models.Post;
 import design.badbag.models.SiteUser;
@@ -55,7 +57,7 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/profile/{username}", method = RequestMethod.POST)
-	public String userNewPosts(@PathVariable String username, HttpServletRequest request, Model model) {
+	public String userNewPosts(@RequestParam("profileImage") MultipartFile imageFile, @PathVariable String username, HttpServletRequest request, Model model) {
 
 		String postBody = request.getParameter("postBody");
 
@@ -67,6 +69,7 @@ public class ProfileController extends AbstractController {
 		 * the blog can make edits or make new posts ++the author will be the
 		 * activeUser
 		 */
+		
 		SiteUser author = getUserFromSession(request.getSession());
 
 		if (request.getParameter("updateBio") != null) {
@@ -81,7 +84,10 @@ public class ProfileController extends AbstractController {
 		}
 
 		if (request.getParameter("updatePic") != null) {
-			System.out.println("Update Pic!!!");
+			
+			String profileURL = uploadImage(imageFile, author.getUid());
+			author.setProfilePath(profileURL);
+			siteUserDao.save(author);
 		}
 
 				
