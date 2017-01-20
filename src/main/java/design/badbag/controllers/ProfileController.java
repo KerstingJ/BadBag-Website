@@ -57,7 +57,7 @@ public class ProfileController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/profile/{username}", method = RequestMethod.POST)
-	public String userNewPosts(@RequestParam("profileImage") MultipartFile imageFile, @PathVariable String username, HttpServletRequest request, Model model) {
+	public String userNewPosts(@RequestParam("profilePic") MultipartFile imageFile, @PathVariable String username, HttpServletRequest request, Model model) {
 
 		String postBody = request.getParameter("postBody");
 
