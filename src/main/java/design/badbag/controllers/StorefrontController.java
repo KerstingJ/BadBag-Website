@@ -122,7 +122,7 @@ public class StorefrontController extends AbstractController {
 		
 		Item item = itemDao.findByUid(Integer.parseInt(item_id));
 		
-		model.addAttribute("itme", item);
+		model.addAttribute("item", item);
 		return "item";
 	}
 
