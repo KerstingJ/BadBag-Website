@@ -42,7 +42,6 @@ public abstract class AbstractController {
 	private static String AWS_ID = System.getenv("AWS_ID");
 	private static String AWS_KEY = System.getenv("AWS_KEY");
 	private static String AWS_BUCKET = System.getenv("AWS_BUCKET");
-	
 
 	protected boolean isLoggedIn(HttpSession session) {
 
@@ -91,7 +90,7 @@ public abstract class AbstractController {
 		 *  
 		 */
 		
-		
+		//TODO: update this so it doesn't return error messages as a string
 		
 		if (!imageFile.isEmpty() && imageFile.getContentType().contains("image")) {
 
@@ -102,8 +101,9 @@ public abstract class AbstractController {
 			//set my credentials
 			AWSCredentials awsCredentials = new BasicAWSCredentials(AWS_ID, AWS_KEY);
 			
-			//create s3 client
+			//set up client
 			AmazonS3Client s3Client = new AmazonS3Client(awsCredentials);
+	
 
 			try {
 				byte[] bytes = imageFile.getBytes();

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="template :: dochead">
+</head>
+<body>
+
+	<div th:replace="template :: navigation"></div>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-offset-2 col-xs-8 col-sm-offset-4 col-sm-4 login">
+				<div class="panel-heading">
+					<h1 th:text="${item.name}"></h1>
+				</div>
+			    <p class="error" th:text="${error}"></p>
+			    
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package design.badbag.models;
 
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,12 +21,13 @@ public class SiteUser extends AbstractEntity {
 	private String username, email;
 	private String pwHash;
 	private String profilePath;
-	private String bio;
+	private String bio, social, type;
 	private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	private List<Post> posts;
 	private List<Item> items;
 	private List<CartItem> cart;
+	private Date lastLogin;
 	
 	
 	public SiteUser() {}
@@ -122,7 +124,31 @@ public class SiteUser extends AbstractEntity {
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
+	
+	@Column(name = "social", length = 10485760)
+	public String getSocial() {
+		return social;
+	}
 
+	public void setSocial(String social) {
+		this.social = social;
+	}
+	
+	@Column(name = "type")
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@OneToMany
+    @JoinColumn(name = "designer_uid")
+    public List<Item> getItems() {
+        return items;
+    }
+	
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
@@ -130,12 +156,6 @@ public class SiteUser extends AbstractEntity {
 	protected void addItem(Item item) {
 		items.add(item);
 	}
-	
-	@OneToMany
-    @JoinColumn(name = "designer_uid")
-    public List<Item> getItems() {
-        return items;
-    }
 
 	@Column(name = "email")
 	public String getEmail() {
@@ -146,6 +166,15 @@ public class SiteUser extends AbstractEntity {
 		this.email = email;
 	}
 	
+	@Column(name = "last_active")
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
 	@OneToMany
 	@JoinColumn(name = "shopper_id")
 	public List<CartItem> getCart() {

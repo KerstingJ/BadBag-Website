@@ -1,5 +1,7 @@
 package design.badbag.controllers;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -46,6 +48,7 @@ public class AuthenticationController extends AbstractController {
 		if (SiteUser.isValidUsername(username) && SiteUser.isValidPassword(password) && password.equals(verify)) {
 
 			SiteUser siteUser = new SiteUser(username, password);
+			siteUser.setLastLogin(new Date());
 			siteUserDao.save(siteUser);
 			this.setUserInSession(request.getSession(), siteUser);
 			return "redirect:/";	
@@ -99,6 +102,8 @@ public class AuthenticationController extends AbstractController {
 		//if the password matches send 'eem along the way
 		if (siteUser.isMatchingPassword(password)) {
 			this.setUserInSession(request.getSession(), siteUser);
+			siteUser.setLastLogin(new Date());
+			siteUserDao.save(siteUser);
 			return "redirect:/";
 		}
 		

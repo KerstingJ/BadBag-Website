@@ -137,7 +137,7 @@ public class StorebackController extends AbstractController {
 				
 			} else {
 				
-				item.addImage("/uploads/" + newFileName);
+				item.addImage(newFileName);
 				itemDao.save(item);
 			}
 

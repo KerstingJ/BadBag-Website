@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,6 +20,7 @@ import design.badbag.models.SiteUser;
  * 	- index, landing page
  * 	- viewCart
  * 	- checkOut
+ *  - item/*
  * 
  * 
  */
@@ -29,9 +31,6 @@ public class StorefrontController extends AbstractController {
 
 	@RequestMapping( value = {"/index", "/"}, method = RequestMethod.GET)
 	public String index(Model model) {
-
-		// TODO: implement the store face
-		// - should be passed a list of all items and designers
 		
 		List<Item> items = itemDao.findByActive(true);
 		
@@ -115,6 +114,16 @@ public class StorefrontController extends AbstractController {
 		model.addAttribute("items", items);
 		model.addAttribute("cartTotal", total);
 		return "checkOut";
+	}
+	
+	
+	@RequestMapping(value = "/item/{item_id}", method = RequestMethod.GET)
+	public String itemPage(@PathVariable String item_id, HttpServletRequest request, Model model) {
+		
+		Item item = itemDao.findByUid(Integer.parseInt(item_id));
+		
+		model.addAttribute("itme", item);
+		return "item";
 	}
 
 }
